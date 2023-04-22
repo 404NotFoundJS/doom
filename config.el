@@ -1,4 +1,3 @@
-
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
@@ -98,3 +97,6 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+;; Use yapf to format python code
+(set-formatter! 'yapf "yapf" :modes '(python-mode))
