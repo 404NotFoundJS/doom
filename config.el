@@ -10,10 +10,13 @@
       user-mail-address "jeremysjj666@gmail.com")
 
 ;; Open in fullscreen
-(add-hook 'window-setup-hook #'toggle-frame-fullscreen)
+;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen)
+(add-to-list 'default-frame-alist '(fullscreen . fullboth))
 
 ;; Set modeline height
-(setq doom-modeline-height 60)
+(if IS-MAC
+    (setq doom-modeline-height 40)
+  (setq doom-modeline-height 60))
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -35,12 +38,14 @@
 ;; refresh your font settings. If Emacs still can't find your font, it likely
 ;; wasn't installed correctly. Font issues are rarely Doom issues!
 
-(setq doom-font "Fira Code-20")
+(if IS-MAC
+    (setq doom-font "Fira Code-16")
+  (setq doom-font "Fira Code-20"))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-dracula)
+(setq doom-theme 'doom-gruvbox)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -100,3 +105,6 @@
 
 ;; Use yapf to format python code
 (set-formatter! 'yapf "yapf" :modes '(python-mode))
+
+;; Enable latex preview
+(latex-preview-pane-enable)
