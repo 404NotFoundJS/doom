@@ -18,6 +18,10 @@
     (setq doom-modeline-height 40)
   (setq doom-modeline-height 60))
 
+;; Set modeline icon
+(setq doom-modeline-major-mode-icon t)
+
+
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
 ;; - `doom-font' -- the primary font to use
@@ -40,7 +44,10 @@
 
 (if IS-MAC
     (setq doom-font "Fira Code-16")
-  (setq doom-font "Fira Code-20"))
+  (setq doom-font "FiraCode Nerd Font-20"))
+
+(setq doom-themes-treemacs-theme "doom-colors")
+(setq treemacs-git-mode 'deferred)
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
