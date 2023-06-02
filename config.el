@@ -1,3 +1,4 @@
+
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
@@ -21,7 +22,6 @@
 ;; Set modeline icon
 (setq doom-modeline-major-mode-icon t)
 
-
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
 ;; - `doom-font' -- the primary font to use
@@ -43,7 +43,7 @@
 ;; wasn't installed correctly. Font issues are rarely Doom issues!
 
 (if IS-MAC
-    (setq doom-font "Fira Code-16")
+    (setq doom-font "FiraCode Nerd Font-16")
   (setq doom-font "FiraCode Nerd Font-20"))
 
 (setq doom-themes-treemacs-theme "doom-colors")
