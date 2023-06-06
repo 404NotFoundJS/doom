@@ -1,4 +1,3 @@
-
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
@@ -21,6 +20,9 @@
 
 ;; Set modeline icon
 (setq doom-modeline-major-mode-icon t)
+
+;; Display buffer encoding
+(setq doom-modeline-buffer-encoding t)
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -46,6 +48,7 @@
     (setq doom-font "FiraCode Nerd Font-16")
   (setq doom-font "FiraCode Nerd Font-20"))
 
+;; Treemacs icons
 (setq doom-themes-treemacs-theme "doom-colors")
 (setq treemacs-git-mode 'deferred)
 
@@ -62,6 +65,12 @@
 (setq display-time-format "%k:%M %D"
       display-time-default-load-average nil)
 (display-time-mode 1)
+
+;; Avoid creating new workspace for new frame
+(setq persp-emacsclient-init-frame-behaviour-override nil)
+
+;; Enable headerline breadcrumb
+(setq lsp-headerline-breadcrumb-enable t)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
