@@ -124,3 +124,11 @@
 
 ;; Enable latex preview
 (latex-preview-pane-enable)
+
+(setq! leetcode-prefer-language "cpp")
+
+(use-package! all-the-icons
+  :if (display-graphic-p))
+
+(setq! doom-modeline-indent-info t)
+
