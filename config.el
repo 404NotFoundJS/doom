@@ -13,16 +13,14 @@
 ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen)
 (add-to-list 'default-frame-alist '(fullscreen . fullboth))
 
-;; Set modeline height
-(if IS-MAC
-    (setq doom-modeline-height 40)
-  (setq doom-modeline-height 60))
-
-;; Set modeline icon
-(setq doom-modeline-major-mode-icon t)
-
-;; Display buffer encoding
-(setq doom-modeline-buffer-encoding t)
+;; Configure modeline
+(after! doom-modeline
+  (setq doom-modeline-major-mode-icon t)
+  (setq doom-modeline-buffer-encoding t)
+  (setq doom-modeline-indent-info t)
+  (if IS-MAC
+      (setq doom-modeline-height 40)
+    (setq doom-modeline-height 60)))
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -119,6 +117,9 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+(setq-default tab-width 2
+              c-default-style "gnu")
+(setq-default python-indent-offset 2)
 ;; Use yapf to format python code
 (set-formatter! 'yapf "yapf" :modes '(python-mode))
 
@@ -129,6 +130,4 @@
 
 (use-package! all-the-icons
   :if (display-graphic-p))
-
-(setq! doom-modeline-indent-info t)
 
