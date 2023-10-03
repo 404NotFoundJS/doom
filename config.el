@@ -18,9 +18,7 @@
   (setq doom-modeline-major-mode-icon t)
   (setq doom-modeline-buffer-encoding t)
   (setq doom-modeline-indent-info t)
-  (if IS-MAC
-      (setq doom-modeline-height 40)
-    (setq doom-modeline-height 60)))
+  (setq doom-modeline-height 40))
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -42,9 +40,7 @@
 ;; refresh your font settings. If Emacs still can't find your font, it likely
 ;; wasn't installed correctly. Font issues are rarely Doom issues!
 
-(if IS-MAC
-    (setq doom-font "FiraCode Nerd Font-16")
-  (setq doom-font "FiraCode Nerd Font-20"))
+(setq doom-font "FiraCode Nerd Font-16")
 
 ;; Treemacs icons
 (setq doom-themes-treemacs-theme "doom-colors")
@@ -130,4 +126,3 @@
 
 (use-package! all-the-icons
   :if (display-graphic-p))
-
