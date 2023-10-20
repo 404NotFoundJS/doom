@@ -13,6 +13,8 @@
 ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen)
 ;; (add-to-list 'default-frame-alist '(fullscreen . fullboth))
 
+(setq fancy-splash-image (concat doom-user-dir "blackhole-lines.svg"))
+
 ;; Configure modeline
 (after! doom-modeline
   (setq doom-modeline-major-mode-icon t)
@@ -40,7 +42,7 @@
 ;; refresh your font settings. If Emacs still can't find your font, it likely
 ;; wasn't installed correctly. Font issues are rarely Doom issues!
 
-(setq doom-font "FiraCode Nerd Font Mono-16")
+(setq doom-font "Iosevka Fixed Slab medium-18")
 
 ;; Treemacs icons
 (setq doom-themes-treemacs-theme "doom-colors")
@@ -126,20 +128,3 @@
 
 (use-package! all-the-icons
   :if (display-graphic-p))
-
-;; Clipboard integration with Wayland
-;; credit: yorickvP on Github
-(setq wl-copy-process nil)
-(defun wl-copy (text)
-  (setq wl-copy-process (make-process :name "wl-copy"
-                                      :buffer nil
-                                      :command '("wl-copy" "-f" "-n")
-                                      :connection-type 'pipe))
-  (process-send-string wl-copy-process text)
-  (process-send-eof wl-copy-process))
-(defun wl-paste ()
-  (if (and wl-copy-process (process-live-p wl-copy-process))
-      nil ; should return nil if we're the current paste owner
-    (shell-command-to-string "wl-paste -n | tr -d \r")))
-(setq interprogram-cut-function 'wl-copy)
-(setq interprogram-paste-function 'wl-paste)
