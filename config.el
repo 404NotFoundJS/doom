@@ -20,7 +20,7 @@
   (setq doom-modeline-major-mode-icon t)
   (setq doom-modeline-buffer-encoding t)
   (setq doom-modeline-indent-info t)
-  (setq doom-modeline-height 40))
+  (setq doom-modeline-height 30))
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -42,7 +42,7 @@
 ;; refresh your font settings. If Emacs still can't find your font, it likely
 ;; wasn't installed correctly. Font issues are rarely Doom issues!
 
-(setq doom-font "Iosevka Fixed Slab medium-18")
+(setq doom-font "Iosevka Fixed Slab medium-12")
 
 ;; Treemacs icons
 (setq doom-themes-treemacs-theme "doom-colors")
@@ -128,3 +128,4 @@
 
 (use-package! all-the-icons
   :if (display-graphic-p))
+
