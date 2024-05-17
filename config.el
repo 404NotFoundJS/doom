@@ -42,7 +42,7 @@
 ;; refresh your font settings. If Emacs still can't find your font, it likely
 ;; wasn't installed correctly. Font issues are rarely Doom issues!
 
-(setq doom-font "Iosevka Fixed Slab medium-12")
+(setq doom-font "IosevkaTermSlab Nerd Font-12")
 
 ;; Treemacs icons
 (setq doom-themes-treemacs-theme "doom-colors")
@@ -125,3 +125,7 @@
 (latex-preview-pane-enable)
 
 (setq leetcode-prefer-language "cpp")
+
+;; OCaml configuration
+(add-to-list 'load-path "/home/jeremy/.opam/default/share/emacs/site-lisp")
+(require 'ocp-indent)
