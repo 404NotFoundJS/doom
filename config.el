@@ -119,12 +119,10 @@
               c-default-style "gnu")
 (setq-default python-indent-offset 2)
 ;; Use yapf to format python code
-;;(set-formatter! 'yapf '("yapf") :modes '(python-mode))
+(set-formatter! 'yapf '("yapf" "--style" "yapf") :modes '(python-mode))
 
 ;; Enable latex preview
 (latex-preview-pane-enable)
-
-(setq leetcode-prefer-language "cpp")
 
 ;; OCaml configuration
 (add-to-list 'load-path "/home/jeremy/.opam/default/share/emacs/site-lisp")
