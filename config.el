@@ -51,7 +51,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-gruvbox)
+(setq doom-theme 'gruvbox-dark-soft)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -118,12 +118,18 @@
 (setq-default tab-width 2
               c-default-style "gnu")
 (setq-default python-indent-offset 2)
+
 ;; Use yapf to format python code
-(set-formatter! 'yapf '("yapf" "--style" "yapf") :modes '(python-mode))
+(setq-hook! 'python-mode-hook +format-with-lsp nil)
+(after! python-mode
+  (set-formatter! 'yapf '"yapf" :modes '(python-mode python-ts-mode)))
 
 ;; Enable latex preview
 (latex-preview-pane-enable)
 
 ;; OCaml configuration
 (add-to-list 'load-path "/home/jeremy/.opam/default/share/emacs/site-lisp")
-(require 'ocp-indent)
+;; (require 'ocp-indent)
+
+;; Remote apheleia
+(setq apheleia-remote-algorithm 'local)
