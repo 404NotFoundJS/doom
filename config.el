@@ -135,3 +135,5 @@
 
 ;; Remote apheleia
 (setq apheleia-remote-algorithm 'local)
+
+(setq copilot-indent-offset-warning-disable t)
