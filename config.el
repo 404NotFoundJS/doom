@@ -121,8 +121,10 @@
 
 ;; Use yapf to format python code
 (setq-hook! 'python-mode-hook +format-with-lsp nil)
-(after! python-mode
-  (set-formatter! 'yapf '"yapf" :modes '(python-mode python-ts-mode)))
+(after! python
+  (set-formatter! 'yapf '("yapf"
+                          "--style={based_on_style: pep8, indent_width: 2}")
+    :modes '(python-mode python-ts-mode)))
 
 ;; Enable latex preview
 (latex-preview-pane-enable)
