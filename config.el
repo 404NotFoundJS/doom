@@ -22,6 +22,10 @@
   (setq doom-modeline-indent-info t)
   (setq doom-modeline-height 30))
 
+(custom-set-faces!
+  '(mode-line :family "Iosevka Comfy Motion")
+  '(mode-line-inactive :family "Iosevka Comfy Motion"))
+
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
 ;; - `doom-font' -- the primary font to use
@@ -120,10 +124,10 @@
 (setq-default python-indent-offset 2)
 
 ;; Use yapf to format python code
-(setq-hook! 'python-mode-hook +format-with-lsp nil)
+;; (setq-hook! 'python-mode-hook +format-with-lsp nil)
 (after! python
   (set-formatter! 'yapf '("yapf"
-                          "--style={based_on_style: pep8, indent_width: 2}")
+                          "--style={based_on_style: google, indent_width: 2}")
     :modes '(python-mode python-ts-mode)))
 
 ;; Enable latex preview
@@ -137,3 +141,5 @@
 (setq apheleia-remote-algorithm 'local)
 
 (setq copilot-indent-offset-warning-disable t)
+
+(breadcrumb-mode)

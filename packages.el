@@ -56,3 +56,5 @@
 (package! leetcode)
 
 (package! gruvbox-theme)
+
+(package! breadcrumb)
