@@ -143,3 +143,5 @@
 (setq copilot-indent-offset-warning-disable t)
 
 (breadcrumb-mode)
+
+(setq evil-want-minibuffer t)
