@@ -124,7 +124,7 @@
 (setq-default python-indent-offset 2)
 
 ;; Use yapf to format python code
-;; (setq-hook! 'python-mode-hook +format-with-lsp nil)
+(setq-hook! 'python-mode-hook +format-with-lsp nil)
 (after! python
   (set-formatter! 'yapf '("yapf"
                           "--style={based_on_style: google, indent_width: 2}")
@@ -141,7 +141,5 @@
 (setq apheleia-remote-algorithm 'local)
 
 (setq copilot-indent-offset-warning-disable t)
-
-(breadcrumb-mode)
 
 (setq evil-want-minibuffer t)

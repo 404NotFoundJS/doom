@@ -57,4 +57,3 @@
 
 (package! gruvbox-theme)
 
-(package! breadcrumb)
