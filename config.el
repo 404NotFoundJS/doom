@@ -23,8 +23,8 @@
   (setq doom-modeline-height 30))
 
 (custom-set-faces!
-  '(mode-line :family "Iosevka Comfy Motion")
-  '(mode-line-inactive :family "Iosevka Comfy Motion"))
+  '(mode-line :family "Iosevka Comfy Motion" :height 100)
+  '(mode-line-inactive :family "Iosevka Comfy Motion" :height 100))
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
