@@ -57,3 +57,4 @@
 
 (package! gruvbox-theme)
 
+(package! scroll-on-jump)

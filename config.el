@@ -24,7 +24,8 @@
 
 (custom-set-faces!
   '(mode-line :family "Iosevka Comfy Motion" :height 100)
-  '(mode-line-inactive :family "Iosevka Comfy Motion" :height 100))
+  '(mode-line-inactive :family "Iosevka Comfy Motion" :height 100)
+  '(doom-variable-pitch-font :family "Iosevka Comfy Motion Duo" :height 100))
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -76,6 +77,8 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
 
+;; use POSIX shell
+(setq shell-file-name (executable-find "bash"))
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
@@ -109,6 +112,37 @@
               ("TAB" . 'copilot-accept-completion)
               ("C-TAB" . 'copilot-accept-completion-by-word)
               ("C-<tab>" . 'copilot-accept-completion-by-word)))
+;; Disable copilot as default
+(setq copilot-mode nil)
+
+(after! scroll-on-jump
+  :config
+  (setq scroll-on-jump-duration 0.6))
+(after! evil
+  (scroll-on-jump-advice-add evil-undo)
+  (scroll-on-jump-advice-add evil-redo)
+  (scroll-on-jump-advice-add evil-jump-item)
+  (scroll-on-jump-advice-add evil-jump-forward)
+  (scroll-on-jump-advice-add evil-jump-backward)
+  (scroll-on-jump-advice-add evil-ex-search-next)
+  (scroll-on-jump-advice-add evil-ex-search-previous)
+  (scroll-on-jump-advice-add evil-forward-paragraph)
+  (scroll-on-jump-advice-add evil-backward-paragraph)
+  (scroll-on-jump-advice-add evil-goto-mark)
+
+  ;; Actions that themselves scroll.
+  (scroll-on-jump-with-scroll-advice-add evil-goto-line)
+  (scroll-on-jump-with-scroll-advice-add evil-goto-first-line)
+  (scroll-on-jump-with-scroll-advice-add evil-scroll-down)
+  (scroll-on-jump-with-scroll-advice-add evil-scroll-up)
+  (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-center)
+  (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-top)
+  (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-bottom))
+
+(after! goto-chg
+  (scroll-on-jump-advice-add goto-last-change)
+  (scroll-on-jump-advice-add goto-last-change-reverse))
+
 ;;
 ;; To get information about any of these functions/macros, move the cursor over
 ;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
@@ -130,12 +164,8 @@
                           "--style={based_on_style: google, indent_width: 2}")
     :modes '(python-mode python-ts-mode)))
 
-;; Enable latex preview
-(latex-preview-pane-enable)
-
 ;; OCaml configuration
 (add-to-list 'load-path "/home/jeremy/.opam/default/share/emacs/site-lisp")
-;; (require 'ocp-indent)
 
 ;; Remote apheleia
 (setq apheleia-remote-algorithm 'local)
@@ -143,3 +173,14 @@
 (setq copilot-indent-offset-warning-disable t)
 
 (setq evil-want-minibuffer t)
+
+;; lsp performance tuning
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+
+;; sharp pdf
+(setq doc-view-mupdf-use-svg t)
+
+;; ignore case in completion
+(setq read-file-name-completion-ignore-case t
+      read-buffer-completion-ignore-case t
+      completion-ignore-case t)
