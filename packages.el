@@ -49,12 +49,18 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
                                         ;(unpin! t)
 
-;; Github Copilot
-(package! copilot
-  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
-
 (package! leetcode)
 
 (package! gruvbox-theme)
 
 (package! scroll-on-jump)
+
+(package! engrave-faces)
+
+(package! ob-prolog)
+
+(package! gptel)
+
+(package! org-fragtog)
+
+(package! codeium :recipe (:host github :repo "Exafunction/codeium.el"))
