@@ -4,7 +4,7 @@
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
 (setq user-full-name "Jeremy Shi"
-      user-mail-address "jeremysjj666@gmail.com")
+      user-mail-address "jeremyshijj@proton.me")
 
 ;;;; Environment Setup
 ;; Ensure environment variables are loaded for daemonized Emacs
@@ -209,7 +209,12 @@
 (after! gptel
   :config
   (setq
-   gptel-backend (gptel-make-gemini "Gemini" :key "AIzaSyAeoA7yL5Pfi9m_eMRAN-P_Hmjpcwhlb7k" :stream t)
+   gptel-backend (gptel-make-gemini "Gemini"
+                   :key (lambda ()
+                          (require 'auth-source)
+                          (let ((secret (plist-get (car (auth-source-search :host "generativelanguage.googleapis.com" :user "apikey" :max 1)) :secret)))
+                            (if (functionp secret) (funcall secret) secret)))
+                   :stream t)
    gptel-default-mode 'org-mode
    gptel-include-reasoning nil))
 
