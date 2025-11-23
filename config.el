@@ -1,43 +1,29 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-;; Place your private configuration here! Remember, you do not need to run 'doom
-;; sync' after modifying this file!
-
 ;;;; User Information
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
 (setq user-full-name "Jeremy Shi"
       user-mail-address "jeremysjj666@gmail.com")
 
+;;;; Environment Setup
+;; Ensure environment variables are loaded for daemonized Emacs
+(after! exec-path-from-shell
+  (when (daemonp)
+    exec-path-from-shell-initialize))
+
+;; Use POSIX shell (bash)
+(setq shell-file-name (executable-find "bash"))
+
 ;;;; Appearance (Theme, Fonts, Modeline, Splash, Icons)
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
+;;; Theme
 (setq doom-theme 'gruvbox-dark-soft)
 
-;; Doom exposes five (optional) variables for controlling fonts in Doom:
-;;
-;; - `doom-font' -- the primary font to use
-;; - `doom-variable-pitch-font' -- a non-monospace font (where applicable)
-;; - `doom-big-font' -- used for `doom-big-font-mode'; use this for
-;;   presentations or streaming.
-;; - `doom-unicode-font' -- for unicode glyphs
-;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
-;;
-;; See 'C-h v doom-font' for documentation and more examples of what they
-;; accept. For example:
-;;
-;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
-;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
-;;
-;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
-;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
-;; refresh your font settings. If Emacs still can't find your font, it likely
-;; wasn't installed correctly. Font issues are rarely Doom issues!
-(setq doom-font (font-spec :family "Aporetic Sans Mono" :size 24)
-      doom-variable-pitch-font (font-spec :family "Aporetic Serif" :size 28))
+;;; Fonts
+(setq doom-font (font-spec :family "Aporetic Sans Mono" :size 16)
+      doom-variable-pitch-font (font-spec :family "Aporetic Serif" :size 16))
 
-;; Configure modeline
+;;; Modeline
 (after! doom-modeline
   (setq doom-modeline-major-mode-icon t)
   (setq doom-modeline-buffer-encoding t)
@@ -50,66 +36,65 @@
    '(mode-line-active ((t (:family "Aporetic Serif" :height 1.0))))
    '(mode-line-inactive ((t (:family "Aporetic Serif" :height 1.0))))))
 
-;; Splash screen image
+;;; Splash Screen
 (setq fancy-splash-image (concat doom-user-dir "blackhole-lines.svg"))
 
-;; Treemacs theme
+;;; Treemacs Theme
 (setq doom-themes-treemacs-theme "doom-colors")
 
-;;;; UI Elements & Basic Editor Behavior
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
+
+;;;; Core Editor Behavior & UI
+;;; Line Numbers
 (setq display-line-numbers-type t)
 
-;; Display time in modeline
+;;; Time Display in Modeline
 (setq display-time-format "%k:%M %D"
       display-time-default-load-average nil)
 (display-time-mode t)
 
-;; Ignore case in completion
+;;; Completion Behavior
 (setq read-file-name-completion-ignore-case t
       read-buffer-completion-ignore-case t
       completion-ignore-case t)
 
-;; Use POSIX shell (bash)
-(setq shell-file-name (executable-find "bash"))
-
-;; Default indentation settings
+;;; Default Indentation
 (setq-default tab-width 2
-              c-default-style "gnu")
+              c-default-style "gnu") ; For C-like modes
 
-;; Enable minibuffer interaction in evil-mode
-(setq evil-want-minibuffer t)
+;;; Evil Mode
+(setq evil-want-minibuffer t) ;; Enable minibuffer interaction in evil-mode
 
-;; PDF viewing quality (use SVG backend for MuPDF)
-(setq doc-view-mupdf-use-svg t)
+;;; PDF Viewing
+(setq doc-view-mupdf-use-svg t) ;; PDF viewing quality (use SVG backend for MuPDF)
 
-;; Treemacs behavior
+;;; Enable auto-mode-plus
+
+;;; Treemacs Behavior
 (setq treemacs-git-mode 'deferred)
 
-;; Avoid creating new workspace for new frame (persp-mode)
+;;; Window & Workspace Management (Persp-mode)
+;; Avoid creating new workspace for new frame
 (after! persp-mode
   (setq persp-emacsclient-init-frame-behaviour-override
-        `(+workspace-current-name))
-  )
+        `(+workspace-current-name)))
+
 
 ;;;; Org Mode Configuration
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
 
-;; Org-mode appearance and behavior hooks
+;;; Org Mode Hooks (Appearance and Behavior)
 (add-hook! 'org-mode-hook
            #'variable-pitch-mode
            #'visual-line-mode
            #'org-fragtog-mode)
 
-;; Org LaTeX preview settings
+;;; Org LaTeX Preview
 (after! org
-  (plist-put org-format-latex-options :scale 2.0))
-(setq org-startup-with-latex-preview t)
+  ;; (plist-put org-format-latex-options :scale 0.6) ; Example if needed
+  (setq org-preview-latex-default-process 'dvisvgm)
+  (setq org-startup-with-latex-preview t))
 
-;; Org mode font faces (ensure code blocks use fixed-pitch)
+;;; Org Mode Font Faces (ensure code blocks use fixed-pitch)
 (custom-theme-set-faces
  'user
  '(org-block ((t (:inherit fixed-pitch))))
@@ -128,58 +113,65 @@
  '(org-block-begin-line ((t (:inherit (shadow fixed-pitch)))))
  '(org-block-end-line ((t (:inherit (shadow fixed-pitch))))))
 
-;; Org Babel languages
+;;; Org Babel Languages
 (org-babel-do-load-languages 'org-babel-load-languages
                              '((prolog . t)))
 
-;; Org LaTeX export configuration (using engrave-faces)
+;;; Org LaTeX Export (using engrave-faces)
 (use-package! engrave-faces-latex
   :after ox-latex)
-
 (setq org-latex-src-block-backend 'engraved
       org-latex-engraved-theme 'modus-operandi)
 
+
 ;;;; Language Specific Configurations
 
-;; General text mode auto-fill (excluding org-mode)
+;;; General Text Mode
+;; Auto-fill, excluding org-mode (which has visual-line-mode)
 (add-hook! 'text-mode-hook
   (lambda ()
     (unless (derived-mode-p 'org-mode)
       (auto-fill-mode t))))
 
-;; Python Configuration
-(setq-default python-indent-offset 2)
+;;; Python
 ;; Use yapf to format python code instead of LSP default
-(setq-hook! 'python-mode-hook +format-with-lsp nil)
+(setq-hook! 'python-mode-hook +format-with-lsp-mode nil)
 (after! python
+  (setq-default python-indent-offset 2)
   (set-formatter! 'yapf '("yapf"
-                          "--style={indent_width: 2, column_limit: 80}")
+                          "--style={based_on_style: pep8, indent_width: 2}")
     :modes '(python-mode python-ts-mode)))
 
-;; OCaml Configuration
-(add-to-list 'load-path "/home/jeremy/.opam/default/share/emacs/site-lisp")
-
-;; LaTeX / AUCTeX Workaround
-;; Reset major mode remaps to default to fix potential AUCTeX issues
-(setq major-mode-remap-alist major-mode-remap-defaults)
-
-;;;; Language Server Protocol (LSP)
-;; Enable headerline breadcrumb
-(setq lsp-headerline-breadcrumb-enable t)
-
-;; LSP performance tuning
-(setenv "LSP_USE_PLISTS" "true")
-(setq read-process-output-max (* 1024 1024)) ;; Increase read limit to 1MB
-
-;; Add JDTLS (Java Language Server) client
+;;; Java
 (after! lsp-mode
   (add-to-list 'lsp-language-id-configuration '(java-mode . "java"))
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection "jdtls")
                     :activation-fn (lsp-activate-on "java")
                     :server-id 'jdtls)))
+(after! java
+  +format-with-lsp-mode)
 
-;; LSP Booster configuration (requires external `emacs-lsp-booster` binary)
+;;; OCaml
+(add-to-list 'load-path "/home/jeremy/.opam/default/share/emacs/site-lisp")
+
+;;; LaTeX / AUCTeX
+;; Reset major mode remaps to default to fix potential AUCTeX issues
+(setq major-mode-remap-alist major-mode-remap-defaults)
+
+
+;;;; Language Server Protocol (LSP)
+;;; LSP UI
+(setq lsp-headerline-breadcrumb-enable t)
+
+;;; LSP Performance
+(setenv "LSP_USE_PLISTS" "true")
+(setq read-process-output-max (* 1024 1024)) ;; Increase read limit to 1MB
+
+;;; LSP Booster (requires external `emacs-lsp-booster` binary)
+;; Ensure json is required earlier or where lsp-booster is defined if it's not implicitly loaded
+;; (require 'json) ; Might be needed if not loaded by lsp-mode or other packages by this point
+
 (defun lsp-booster--advice-json-parse (old-fn &rest args)
   "Try to parse bytecode instead of json."
   (or
@@ -188,7 +180,7 @@
        (when (byte-code-function-p bytecode)
          (funcall bytecode))))
    (apply old-fn args)))
-(advice-add (if (progn (require 'json)
+(advice-add (if (progn (require 'json) ; Ensure json is available for this check
                        (fboundp 'json-parse-buffer))
                 'json-parse-buffer
               'json-read)
@@ -212,16 +204,16 @@
 (advice-add 'lsp-resolve-final-command :around #'lsp-booster--advice-final-command)
 
 
-;;;; AI & Completion Tools (Copilot, GPTel, Codeium)
+;;;; AI & Completion Tools
+;;; GPTel
+(after! gptel
+  :config
+  (setq
+   gptel-backend (gptel-make-gemini "Gemini" :key "AIzaSyAeoA7yL5Pfi9m_eMRAN-P_Hmjpcwhlb7k" :stream t)
+   gptel-default-mode 'org-mode
+   gptel-include-reasoning nil))
 
-;; GPTel Configuration (Github Models)
-(gptel-make-openai "Github Models" ;Any name you want
-  :host "models.inference.ai.azure.com"
-  :endpoint "/chat/completions?api-version=2024-05-01-preview"
-  :stream t
-  :models '(gpt-4o))
-
-;; Codeium Configuration
+;;; Codeium
 (after! codeium
   ;; use globally for completion-at-point
   (add-to-list 'completion-at-point-functions #'codeium-completion-at-point)
@@ -254,12 +246,13 @@
   (setq codeium/document/text 'my-codeium/document/text)
   (setq codeium/document/cursor_offset 'my-codeium/document/cursor_offset))
 
-;;;; External Tools & Integrations
 
-;; Apheleia (formatter runner) remote algorithm setting
+;;;; External Tools & System Integrations
+
+;;; Apheleia (Formatter Runner)
 (setq apheleia-remote-algorithm 'local)
 
-;; Emacs Everywhere Hyprland Support
+;;; Emacs Everywhere (Hyprland Support)
 (setq emacs-everywhere-window-focus-command
       (list "hyprctl" "dispatch" "focuswindow" "address:%w"))
 (setq emacs-everywhere-app-info-function
@@ -283,8 +276,23 @@
      :title window-title
      :geometry window-geometry)))
 
+;;; Clipboard Integration (TUI Wayland)
+(when (and (not window-system) ; In TUI
+           (executable-find "wl-copy")
+           (executable-find "wl-paste"))
+  (setq wl-copy-process nil)
+  (defun wl-copy (text)
+    (setq wl-copy-process (make-process :name "wl-copy"
+                                        :buffer nil
+                                        :command '("wl-copy" "-f" "-n")
+                                        :connection-type 'pipe
+                                        :noquery t))
+    (process-send-string wl-copy-process text)
+    (process-send-eof wl-copy-process))
+  (setq interprogram-cut-function 'wl-copy))
+(setq xterm-extra-capabilities '(getSelection setSelection modifyOtherKeys))
 
-;;;; Final Notes
+;;;; Final Notes (Doom Emacs Template Comments)
 ;;
 ;; Remember:
 ;; - `load!' for loading external *.el files relative to this one

@@ -53,14 +53,16 @@
 
 (package! gruvbox-theme)
 
-(package! scroll-on-jump)
-
 (package! engrave-faces)
 
 (package! ob-prolog)
 
-(package! gptel)
-
 (package! org-fragtog)
 
 (package! codeium :recipe (:host github :repo "Exafunction/codeium.el"))
+
+(package! jupyter)
+
+(package! code-cells)
+
+(package! exec-path-from-shell)
