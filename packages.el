@@ -59,8 +59,6 @@
 
 (package! org-fragtog)
 
-(package! codeium :recipe (:host github :repo "Exafunction/codeium.el"))
-
 (package! jupyter)
 
 (package! code-cells)

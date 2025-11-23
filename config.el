@@ -218,40 +218,6 @@
    gptel-default-mode 'org-mode
    gptel-include-reasoning nil))
 
-;;; Codeium
-(after! codeium
-  ;; use globally for completion-at-point
-  (add-to-list 'completion-at-point-functions #'codeium-completion-at-point)
-
-  :config
-  (setq use-dialog-box nil) ;; do not use popup boxes for auth etc.
-
-  ;; if you don't want to use customize to save the api-key
-  ;; (setq codeium/metadata/api_key "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx") ; Consider storing secrets securely
-
-  ;; get codeium status in the modeline
-  (setq codeium-mode-line-enable
-        (lambda (api) (not (memq api '(CancelRequest Heartbeat AcceptCompletion)))))
-  (add-to-list 'mode-line-format '(:eval (car-safe codeium-mode-line)) t)
-  ;; alternatively for a more extensive mode-line
-  ;; (add-to-list 'mode-line-format '(-50 "" codeium-mode-line) t)
-
-  ;; Control which APIs are enabled/used
-  (setq codeium-api-enabled
-        (lambda (api)
-          (memq api '(GetCompletions Heartbeat CancelRequest GetAuthToken RegisterUser auth-redirect AcceptCompletion))))
-
-  ;; Optimize performance by limiting context sent to Codeium
-  (defun my-codeium/document/text ()
-    (buffer-substring-no-properties (max (- (point) 3000) (point-min)) (min (+ (point) 1000) (point-max))))
-  ;; Corresponding cursor offset calculation (in UTF-8 bytes)
-  (defun my-codeium/document/cursor_offset ()
-    (codeium-utf8-byte-length
-     (buffer-substring-no-properties (max (- (point) 3000) (point-min)) (point))))
-  (setq codeium/document/text 'my-codeium/document/text)
-  (setq codeium/document/cursor_offset 'my-codeium/document/cursor_offset))
-
-
 ;;;; External Tools & System Integrations
 
 ;;; Apheleia (Formatter Runner)
